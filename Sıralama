@@ -1,0 +1,17 @@
+create table Users(
+	 Id int primary key identity(1,1),
+	 Name varchar(30),
+	 Surname varchar(50),
+	 Puan float
+)
+INSERT INTO Users (Name, Surname, Puan)  VALUES ('Özde', 'Adigüzel', 95);
+INSERT INTO Users (Name, Surname, Puan)  VALUES ('Mügenur', 'Akarçay', 52);
+INSERT INTO Users (Name, Surname, Puan)  VALUES ('Emre Ayberk ', 'Akilli', 83);
+INSERT INTO Users (Name, Surname, Puan)  VALUES ('Lemis', 'Akküt', 12);
+INSERT INTO Users (Name, Surname, Puan)  VALUES ('Sinan', 'Kayhan', 95);
+select * from Users
+select * from Users Order by Puan desc
+select *,RANK() OVER(Order by Puan desc)Siralama from Users
+select NumberUser.Id,NumberUser.Name ,NumberUser.Surname,NumberUser.Puan,NumberUser.Siralama from 
+(select *,RANK() OVER(Order by Puan desc)Siralama from Users) NumberUser 
+where NumberUser.Name='Mügenur' order by Puan desc
