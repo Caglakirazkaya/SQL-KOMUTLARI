@@ -1,0 +1,32 @@
+CREATE TABLE PublicToken (
+    id int  primary key identity(1,1),
+    Token varchar(6)  
+	)
+	
+  declare @token as uniqueidentifier = newid();
+	insert into PublicToken(Token) values(right(@token, 6))
+	set @token=newid()
+	insert into PublicToken(Token) values(right(@token, 6))
+  
+  insert into PublicToken(Token) 
+	SELECT right('E3E9F8', 6)
+	WHERE 
+	NOT EXISTS (SELECT 1 FROM PublicToken WHERE Token='E3E9F8');
+
+  declare @token as uniqueidentifier = newid();
+	insert into PublicToken(Token) 
+	SELECT right(@token, 6)
+	WHERE 
+	NOT EXISTS (SELECT 1 FROM PublicToken WHERE Token=right(@token, 6));
+  
+  
+  declare @sayi int
+	set @sayi=1
+	while @sayi<15 begin
+	declare @temp as uniqueidentifier = newid();
+	insert into PublicToken(Token) 
+	SELECT right(@temp, 6)
+	WHERE   NOT EXISTS 
+		(SELECT 1 FROM PublicToken WHERE Token = right(@temp, 6));
+		set @sayi=@sayi+1
+	END
